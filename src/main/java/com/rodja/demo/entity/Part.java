@@ -1,6 +1,7 @@
 package com.rodja.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.Nullable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,28 +22,37 @@ public class Part {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "material")
-    private String material;
-
     @Column(name = "height")
     private int height;
 
     @Column(name = "width")
     private int width;
 
-    @Column(name = "depth")
-    private int depth;
-
     @Column(name = "code_for_supplier")
     private String codeForSupplier;
+
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "count")
     private int count;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "material_id")
+    @JsonIgnoreProperties({"parts"})
+    private Material material;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "assembly_id")
     @JsonIgnoreProperties({"parts"})
+    @Nullable
     private Assembly assembly;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "machine_id")
+    @JsonIgnoreProperties({"parts"})
+    @Nullable
+    private Machine machine;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "supplier_id")
@@ -52,15 +62,16 @@ public class Part {
     public Part() {
     }
 
-    public Part(String id, String name, String material, int height, int width, int depth, String codeForSupplier, int count) {
+    public Part(String id, String name, int height, int width, String codeForSupplier, String status, int count, Material material, Supplier supplier) {
         this.id = id;
         this.name = name;
-        this.material = material;
         this.height = height;
         this.width = width;
-        this.depth = depth;
         this.codeForSupplier = codeForSupplier;
+        this.status = status;
         this.count = count;
+        this.material = material;
+        this.supplier = supplier;
     }
 
     public String getId() {
@@ -79,14 +90,6 @@ public class Part {
         this.name = name;
     }
 
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
     public int getHeight() {
         return height;
     }
@@ -101,14 +104,6 @@ public class Part {
 
     public void setWidth(int width) {
         this.width = width;
-    }
-
-    public int getDepth() {
-        return depth;
-    }
-
-    public void setDepth(int depth) {
-        this.depth = depth;
     }
 
     public String getCodeForSupplier() {
@@ -127,12 +122,28 @@ public class Part {
         this.count = count;
     }
 
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
     public Assembly getAssembly() {
         return assembly;
     }
 
     public void setAssembly(Assembly assembly) {
         this.assembly = assembly;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 
     public Supplier getSupplier() {
@@ -143,18 +154,26 @@ public class Part {
         this.supplier = supplier;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Part{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", material='" + material + '\'' +
                 ", height=" + height +
                 ", width=" + width +
-                ", depth=" + depth +
                 ", codeForSupplier='" + codeForSupplier + '\'' +
+                ", status='" + status + '\'' +
                 ", count=" + count +
+                ", material=" + material +
+                ", supplier=" + supplier +
                 '}';
     }
-    
 }

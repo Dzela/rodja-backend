@@ -52,4 +52,14 @@ public class PartRestController {
         return partService.getPartsBySupplier(supplierId);
     }
 
+    @GetMapping("/material/{materialId}")
+    public List<Part> getPartsByMaterial(@PathVariable String materialId) {
+        return partService.getPartsByMaterial(materialId);
+    }
+
+    @GetMapping("/machine/{machineId}")
+    public List<Part> getPartsByMachine(@PathVariable String machineId) {
+        return partService.getPartsByMachine(machineId);
+    }
+
 }

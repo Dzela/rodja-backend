@@ -12,5 +12,7 @@ public interface PartService {
     public void deletePart(String id);
     public List<Part> getPartsByAssembly(String assemblyId);
     public List<Part> getPartsBySupplier(String supplierId);
+    public List<Part> getPartsByMachine(String machineId);
+    public List<Part> getPartsByMaterial(String materialId);
 
 }

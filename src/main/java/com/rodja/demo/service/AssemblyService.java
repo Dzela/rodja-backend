@@ -10,5 +10,6 @@ public interface AssemblyService {
     public Assembly getAssembly(String id);
     public void saveAssembly(Assembly assembly);
     public void deleteAssembly(String id);
+    public List<Assembly> getAssembliesByMachine(String machineId);
 
 }
