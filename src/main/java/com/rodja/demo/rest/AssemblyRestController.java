@@ -41,4 +41,9 @@ public class AssemblyRestController {
         assemblyService.deleteAssembly(id);
         return "Deleted assembly with id: " + id;
     }
+
+    @GetMapping("/machine/{machineId}")
+    public List<Assembly> getAssembliesByMachine(@PathVariable String machineId) {
+        return assemblyService.getAssembliesByMachine(machineId);
+    }
 }
